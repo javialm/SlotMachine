@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>TR5</title>
+	<link rel="stylesheet" id="efecte" media="screen" href="./css/main_style.css">
+
+	<script src="./js/class.Cilindro.js" type="text/javascript"></script>
+	<script src="./js/class.Efecto.js" type="text/javascript"></script>
+	<script src="./js/class.Premio.js" type="text/javascript"></script>
+
+
+	<script>
+		window.onload = function() { // ASIGNAR VALORES INICIALES A TODOS LOS LED
+				var displayBet = document.getElementById('apuesta');
+				displayBet.innerHTML = "<p>" + bet + "</p>";
+				var cashpanel = document.getElementById('Panel');
+				cashpanel.innerHTML = "<p>" + dineros + "</p>";
+				var displayAdvances = document.getElementById('avances');
+				displayAdvances.innerHTML = "<p>" + advances + "</p>";
+			}
+			//Objetos Cilindro para cada uno de los tres
+		var dineros = 20; //DINERO INICIAL
+		var bet = 2; //APUESTA INICIAL
+		var cilindro1 = new Cilindro(); //CREAR CILINDRO 1
+		var cilindro2 = new Cilindro();//CREAR CILINDRO 2
+		var cilindro3 = new Cilindro();//CREAR CILINDRO 3
+		var valor1 = []; //CREAR ARRAY VACIO
+		var valor2 = []; //CREAR ARRAY VACIO
+		var valor3 = []; //CREAR ARRAY VACIO
+		var top1, top2, top3;  // POSICION FINAL ELEMENTOS;
+		var rnd1, rnd2, rnd3; //ELEMENTOS RANDOM
+		var time = 0;     //
+		var detener1 = false; //BOOLEAN PARAR RULETA
+		var detener2 = false; //BOOLEAN PARAR RULETA SECUENCIA 2
+		var detener3 = false;//BOOLEAN PARAR RULETA SECUENCIA 3
+		var continuar = false; //
+		var todo = false; // CONTROLAR ALLIN
+		var todo2 = false; //CONTROLAR ALLIN2
+		var advances = 2; // CONTROL AVANCES;
+
+
+		function cambio() { //FUNCION CAMBIO -> INICIA EL JUEGO
+			var led = document.getElementById('led');
+			led.style.color = "red";
+			led.innerHTML = "<marquee>BUENA SUERTE!</marquee>";
+			todo2 = false; //PONER ALLIN EN FALSE
+			if (dineros >= bet) {
+				document.getElementById('efecte').href = "./css/efecto.css"; // CAMBIAR CSS PARA ANIMACION
+				timear(); // LLAMAR A LA FUNCION ANIMAR LA RULETA PARA QUE PARE UNA A UNA;
+			} else {
+				var led = document.getElementById('led');//SI NO HAY DINERO MUESTRA MENSAJE
+				led.innerHTML = "<marquee scrolldelay='-60' behavior='slide' scrollamount='30'>&nbsp SIN DINERO! </marquee>";
+			}
+		}
+
+		function adjustBet() { // FUNCION AJUSTAR APUESTA
+			if (dineros <= 0) {
+				bet = 1; //  SI EL DINERO ES MENOR O IGUAL A 0 LA APUESTA SE QUEDA A 1(APUESTA MINIMA1);
+				var displayBet = document.getElementById('apuesta');
+				displayBet.innerHTML = "<p>" + bet + "</p>";
+			}else{
+				if (dineros < bet) {
+					bet= dineros;   // SI EL DINERO ES MENOR QUE LA APUESTA, LA APUESTA SE IGUALA
+					var displayBet = document.getElementById('apuesta');
+					displayBet.innerHTML = "<p>" + bet + "</p>";
+				}
+			}
+
+
+		}
+
+		function juego() { // FUNCION JUEGO
+			continuar = false;
+			document.getElementById('efecte').href = "./css/main_style.css";
+
+			//Llamamos al método change de cada cilindro para cambiar las imagenes
+			rnd1 = cilindro1.change(n = 1);
+			rnd2 = cilindro2.change(n = 2);
+			rnd3 = cilindro3.change(n = 3);
+
+			comprobar(rnd1, rnd2, rnd3); //ENVIA LOS RANDOM A COMPROBAR
+			var cashpanel = document.getElementById('Panel');
+			dineros = dineros - bet; // RESTAR AL DINERO LA APUESTA DE LA TIRADA
+			if (dineros < 0) {
+				dineros = 0; // CONTROLAR QUE EL DINERO NO SEA NEGATIVO
+			}
+			adjustBet();// LLAMAR A AJUSTAR APUESTA
+			cashpanel.innerHTML = "<p>" + dineros + "</p>";
+		}
+
+		function comprobar(top1, top2, top3) { // FUNCION COMPROBAR LOS ELEMENTOS
+			valor1 = [0, 1, 2, 4, 2, 5, 3, 4, 3, 5];  // EL VALOR DEL RANDOM SE ASIGNA A UNA POS DEL ARRAY
+			valor2 = [0, 2, 1, 2, 3, 5, 4, 1, 4, 5];
+			valor3 = [0, 4, 1, 3, 4, 1, 5, 3, 4, 2];
+
+			mid1 = top1 + 1;
+			bot1 = top1 + 2;
+														//CONTROLAR LA FIGURA DE ARRIBA,ABAJO Y EN MEDIO
+			mid2 = top2 + 1;
+			bot2 = top2 + 2;
+
+			mid3 = top3 + 1;
+			bot3 = top3 + 2;
+
+			if (valor1[top1] == valor2[top2] && valor1[top1] == valor3[top3]) {
+				var v1 = valor1[top1];
+				var cadena = "top";// COMPROBAR LINEA DE ARRIBA
+				todo2 = true;
+				checkPremio(v1, cadena, bet, todo); // SI TOCA LLAMA AL PREMIO PARA AÑADIR DINEROS
+			}
+			if (valor1[mid1] == valor2[mid2] && valor1[mid1] == valor3[mid3]) {
+				var v1 = valor1[mid1];
+				var cadena = "mid";//COMPROBAR LINEA DE MID
+				todo2 = true;
+				checkPremio(v1, cadena, bet, todo); // SI TOCA LLAMA AL PREMIO PARA AÑADIR DINEROS
+			}
+			if (valor1[bot1] == valor2[bot2] && valor1[bot1] == valor3[bot3]) {
+				var v1 = valor1[bot1];
+				var cadena = "bot"; //COMPROBAR LINEA DE ABAJO
+				todo2 = true;
+				checkPremio(v1, cadena, bet, todo); // SI TOCA LLAMA AL PREMIO PARA AÑADIR DINEROS
+			}
+			if (valor1[top1] == valor2[mid2] && valor2[mid2] == valor3[bot3]) {
+				var v1 = valor1[top1];
+				var cadena = "lD";// COMPROBAR DIAGONAL 1
+				todo2 = true;
+				checkPremio(v1, cadena, bet, todo); // SI TOCA LLAMA AL PREMIO PARA AÑADIR DINEROS
+			}
+			if (valor3[top3] == valor2[mid2] && valor3[top3] == valor1[bot1]) {
+				var v1 = valor3[top3];
+				var cadena = "lI"; //COMPROBAR DIAGONAL2
+				todo2 = true;
+				checkPremio(v1, cadena, bet, todo); // SI TOCA LLAMA AL PREMIO PARA AÑADIR DINEROS
+			}
+			if (todo && todo2 == false) { // SI ALLING TRUE Y PREMIO FALSO
+				dineros = 0; // DINERO A 0 PORQUE HAS PERDIDO EL ALLING
+				var led = document.getElementById('led');
+				led.innerHTML = "<marquee scrolldelay='-60' behavior='slide' scrollamount='30'>&nbsp MALA SUERTE! </marquee>";
+				led.style.color = "#85c3d3";
+				if (dineros < 0) {
+					dineros = 0; // CONTROL DE QUE EL DINERO NO CAIGA EN NEGATIVO
+				}
+				todo = false; // APAGAR EL ALLIN PARA SEGUIR JUGANDO
+				todo2 = false;
+			}
+			document.getElementById('Panel').style.color = "red";
+			todo = false;
+		}
+
+
+		function increaseBet() { //INCREMENTAR APUESTA
+			if (bet >= dineros) { // LA APUESTA NO PUEDE SER MAYOR QUE EL DINERO DISPONIBLE
+				var led = document.getElementById('led');
+				led.innerHTML = "<marquee scrolldelay='-60' behavior='slide' scrollamount='30'>&nbsp SIN DINERO! </marquee>";
+			} else {
+				bet++;
+				var displayBet = document.getElementById('apuesta');
+				displayBet.innerHTML = "<p>" + bet + "</p>";
+			}
+		}
+
+		function decreaseBet() { // BAJAR APUESTA
+			if (bet > 1) { //APUESTA MINIMA 1
+				bet--;
+				var displayBet = document.getElementById('apuesta');
+				displayBet.innerHTML = "<p>" + bet + "</p>";
+			}
+		}
+
+		function increaseAdvances(bet) { // INCREMENTAR AVANCES (ES EL PREMIO DE UNA FIGURA)
+			advances = advances+bet;
+			premio();
+			var displayAdvances = document.getElementById('avances');
+			displayAdvances.innerHTML = "<p>" + advances + "</p>";
+		}
+
+		function addMoney() { //AÑADIR DINERO
+			dineros++;
+			var cashpanel = document.getElementById('Panel');
+			cashpanel.innerHTML = "<p>" + dineros + "</p>";
+		}
+
+		function allin() { //ACTIVAR EL ALLING
+			document.getElementById('Panel').style.color = "#85c3d3"; // PANEL CAMBIA A AZUL
+			todo = true;
+		}
+
+		function cobro() { // COBRAR DINEROS
+			if (dineros >0) {
+			var salida = document.getElementById('gif');
+			var cashpanel = document.getElementById('Panel');
+			var paro = false;
+			salida.style.background = "url('./img/gold.gif') repeat-x 90px"; // PONER GIF DE DINERO
+			salida.style.backgroundSize = "90px";
+			if (dineros%2==0) { // SI EL DINERO ES UN VALOR PAR O IMPAR
+				dineros = dineros - 2;
+			}else{
+				dineros = dineros-3;
+			}
+			cashpanel.innerHTML = "<p>" + dineros + "</p>";
+			if (dineros === 0) { // CUANDO EL DINERO LLEGUE A 0 ACTIVA PARAR GIF
+				paro = true;
+			}
+
+			if (paro) {
+				clearTimeout(cobrar);
+				salida.style.background="none"; // CUANDO ES 0 PARAR QUITAR EL GIF
+			}else {
+				cobrar = setTimeout(cobro, 500);
+			}
+		}else{
+		var led = document.getElementById('led');
+		led.innerHTML = "<marquee scrolldelay='-60' behavior='slide' scrollamount='30'>&nbsp SIN DINERO! </marquee>";
+	}
+}
+	</script>
+
+</head>
+
+<body>
+
+	<section class="parte1">
+		<div class="top">
+			<div id="luces">
+			</div>
+			<div id="led">
+				<marquee>JUGAR Y GANAR</marquee>
+			</div>
+			<div id="luces2">
+			</div>
+		</div>
+		<div class="cajaRuleta">
+			<div class="contenedor">
+				<div class="ruleta" id="ruleta1">
+					<input type="hidden" id="r1" value="" />
+				</div>
+				<div class="ruleta" id="ruleta2">
+					<input type="hidden" id="r2" value="" />
+				</div>
+				<div class="ruleta" id="ruleta3">
+					<input type="hidden" id="r3" value="" />
+				</div>
+
+			</div>
+			<div class="ranuraDinero">
+			</div>
+			<input type="button" class="ranuraDinero2" onclick="addMoney()">
+			<div class="cont1">
+				<p>
+					00
+				</p>
+			</div>
+			<div class="puntos">
+				<div class="texts">
+					<p class="cashText">
+						CASH
+					</p>
+					<p class="apuestaText">
+						APUESTA
+					</p>
+					<p class="avanceText">
+						AVANCES
+					</p>
+				</div>
+
+				<div id="Panel">
+					<p> 20 </p>
+				</div>
+				<div id="apuesta">
+					<p>
+					</p>
+				</div>
+				<div id="avances">
+					<p>
+						00
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div id="botbox">
+		<div class="botones">
+			<div id="run">
+				<input type="button" class="button" id="juego" value="dale" onclick="cambio()">
+				<input type="button" class="button" id="aumentar" value=" + " onclick="increaseBet()">
+				<input type="button" class="button" id="disminuir" value=" - " onclick="decreaseBet()">
+				<input type="button" class="button" id="av1" value="1" onclick="avance(n=1)">
+				<input type="button" class="button" id="av2" value="2" onclick="avance(n=2)">
+				<input type="button" class="button" id="av3" value="3" onclick="avance(n=3)">
+				<input type="button" class="button" id="allin" value="ALL IN" onclick="allin()">
+				<input type="button" class="button" id="cobrar" value="Cobrar" onclick="cobro()">
+			</div>
+			<div id="bott">
+				<div class="salida">
+					<div id="gif">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</html>

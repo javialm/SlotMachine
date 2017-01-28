@@ -1,0 +1,452 @@
+* {
+    margin: auto;
+    padding: 0px auto;
+    /*overflow: hidden;*/
+}
+
+body {
+    background: linear-gradient(#a8a8a8, #e3e3e3);
+    background-image: url("../img/digit.jpg");
+  box-shadow: inset 0px -200px 133px -89px rgba(0,0,0,0.75);
+}
+
+#Panel {
+    background-image: url("../img/display-money.png");
+    font-family: "DS-Digital";
+    font-style: italic;
+    font-weight: bold;
+    width: 95px;
+    height: 38px;
+    max-width: 95px;
+    margin-left: 50px;
+    overflow: hidden;
+    color: red;
+}
+
+#Panel p{
+  font-size: 2.3em;
+  text-align: right;
+  margin-right: 8.3px;
+}
+
+.puntos {
+    /* CONTIENE EL PANEL DE LOS DINEROS PARA POSICIONARLOS*/
+    margin-top: 5px;
+    height: 70px;
+    overflow: hidden;
+}
+
+.texts {
+    /*CAJA DONDE SE ENCUENTRAN LOS TEXTOS DE LA MAQUINA*/
+    height: 30px;
+    overflow: hidden;
+}
+
+.top {
+    /*PARTE DE ARRIBA DE LA MAQUINA*/
+    width: 600px;
+    height: 100px;
+    background-color: orange;
+    margin-top: 10px;
+    background-image: url("../img/tmg.png");
+    box-shadow: inset 0px 10px 50px 10px rgba(0,0,0,0.75);
+}
+
+#led {
+    /* PANTALLA DE PREMIO*/
+    background-image: url("../img/led.png");
+    color: red;
+    font-family: "Electronic Highway Sign";
+    font-size: 3em;
+    width: 450px;
+    height: 50px;
+    margin: auto;
+    padding-top: .2em;
+}
+
+#luces{ /* AQUI POSICION LED ARRIBA*/
+  width: 340px;
+  height: 20px;
+  margin-top: 5px;
+}
+
+#luces2{ /* AQUI POSICION LED ABAJO*/
+  margin-top: 1px;
+  width: 340px;
+  height: 20px;
+}
+
+.cont1 {
+    background-image: url("../img/cont.png");
+    background-repeat: no-repeat;
+    font-family: "DS-Digital";
+    font-style: italic;
+    font-weight: bold;
+    color: red;
+    font-size: 2.3em;
+    width: 100px;
+    height: 50px;
+    margin: auto;
+    display: inline;
+    float: left;
+    margin-top: -190px;
+    margin-left: 10px;
+    padding-left: 9px;
+    padding-bottom: 0px;
+}
+
+#apuesta {
+    background-image: url("../img/cont.png");
+    background-repeat: no-repeat;
+    font-family: "DS-Digital";
+    font-style: italic;
+    font-weight: bold;
+    width: 57px;
+    height: 90px;
+    display: inline;
+    float: left;
+    margin-top: -39px;
+    margin-left: 230px;
+    max-width: 57px;
+    overflow: hidden;
+}
+#apuesta p{
+  color: red;
+  font-size: 2.3em;
+  text-align: right;
+  margin-right: 10px;
+  margin-top: 0.8px;
+
+}
+
+
+
+
+#avances {
+    background-image: url("../img/cont.png");
+    background-repeat: no-repeat;
+    font-family: "DS-Digital";
+    width: 100px;
+    height: 50px;
+    margin: auto;
+    display: inline;
+    float: left;
+    margin-top: -90px;
+    margin-left: 400px;
+}
+
+#avances p{
+  color: red;
+  font-size: 2.3em;
+  font-style: italic;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 53px;
+  margin-top: 2px;
+}
+
+.avanceText {
+    color: black;
+    font-size: 1em;
+    font-family: sans-serif;
+    font-weight: bold;
+    float: left;
+    margin-left: 75px;
+    background-color: #eee;
+    box-shadow: 0px 0px 4px 0px #222;
+}
+
+.cashText {
+    color: black;
+    font-size: 1em;
+    font-family: sans-serif;
+    float: left;
+    margin-left: 75px;
+    font-weight: bold;
+    background-color: #eee;
+    box-shadow: 0px 0px 7px 1px #222;
+
+}
+
+.apuestaText {
+    color: black;
+    font-size: 1em;
+    font-family: sans-serif;
+    float: left;
+    margin-left: 100px;
+    font-weight: bold;
+    background-color: #eee;
+        box-shadow: 0px 0px 4px 0px #222;
+
+}
+
+.ranuraDinero {
+    width: 15px;
+    height: 35px;
+    background-color: black;
+    display: inline;
+    float: left;
+    margin-top: -280px;
+    margin-left: 520px;
+    border: inset gray 3px;
+    background-size: 15px;
+}
+
+.ranuraDinero2 {
+    width: 17px;
+    height: 35px;
+    display: inline;
+    float: left;
+    margin-top: -279px;
+    margin-left: 525px;
+    background: url("../img/money.png");
+    background-size: 17px;
+    border: none;
+}
+
+.ranuraDinero2:active {
+  transition: 100ms;
+  transform: translate(-6px,3px);
+  visibility: hidden;
+}
+
+
+
+.cajaRuleta {
+    /*CAJA DONDE ESTARAN LAS RULETAS*/
+    width: 600px;/*550*/
+    height: 430px;
+    /*background-color: gray;
+    border: outset 7px #4b4b4b;
+    border-radius: 20px/40px 40px 20px 20px;*/
+    overflow: hidden;
+    background: linear-gradient(#280808, #b42d2d);
+    background-image: url("../img/voli.jpg");
+    /*background-image: url("../img/caja.png") no-repeat;*/
+    transform: perspective(100px) rotateX(1deg) translateY(-7px);
+    transform-style: preserve-3d;
+    box-shadow: inset 0px 0px 20px black;
+
+}
+
+.contenedor {
+    width: 450px;
+    height: 350px;
+    margin: auto;
+    margin-left: 85px;
+
+}
+
+.ruleta{
+  width: 100px;
+  height: 310px;
+  background-color: white;
+  float: left;
+  margin-top: 35px;
+  margin-right: 50px;
+  box-shadow: inset 1px 20px 10px 10px rgba(33, 33, 33, 0.69);
+}
+
+#ruleta1 {
+    /*CAJA DONDE ESTARAN LAS RULETAS*/
+    background: url("../img/r1.png");
+    background-size: px;
+}
+
+
+#ruleta2 {
+    /*CAJA DONDE ESTARAN LAS RULETAS*/
+    background: url("../img/r2.png");
+    background-size: px;
+
+}
+
+#ruleta3 {
+    /*CAJA DONDE ESTARAN LAS RULETAS*/
+    background: url("../img/r3.png");
+    background-size: px;
+}
+
+.botones {
+    /*CAJA DE LOS BOTONES*/
+    width: 690px;
+    height: 95px;
+    display: block;
+    background-color: #676767;
+    /*overflow: auto;*/
+    transform: perspective(600px) rotateX(50deg) translateY(-36px);
+    transform-style: preserve-3d;
+}
+
+#bott {
+    /*PARTE BAJA DE LA MAQUINA OPCIONAL*/
+    width: 625px;
+    height: 145px;
+    background: linear-gradient(#b1b1b1, #2e2e2e);
+    transform: perspective(600px) rotateX(-50deg) translateY(45px);
+    transform-style: preserve-3d;
+}
+
+#botbox {
+    /*PARTE BAJA DE LA MAQUINA OPCIONAL*/
+    width: 100%;
+    height: 200px;
+    background-color: #252525;
+}
+
+/* BOTOOONES */
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5em;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px 10px 10px 10px;
+    position: relative;
+    /*transition: all 0.1s ease;
+    transform: perspective(600px) rotateX(50deg);
+    transform-origin: 100% 50%;
+    transform-style: preserve-3d;*/
+    box-shadow: 0px 6px 4px 0px #222;
+}
+
+#allin{
+      background-color: #8b2f2f;
+}
+
+#allin:hover{
+      background-color: #a23a3a;
+}
+
+.button:active{
+  /*transform: perspective(600px) rotateX(50deg) translateY(2px);*/
+    transform:translate(1px, 2px);
+    box-shadow: 0px 2px 2px 0px #222;
+}
+
+.button:hover{
+    background-color: #61c965;
+}
+
+.salida{
+  width: 50%;
+  height: 90px;
+  background-color: #111;
+}
+#gif{
+  width: 85%;
+  height: 90px;
+}
+
+
+
+@keyframes ruleteo {
+from {
+background-position: 0px 0px;
+}
+
+100% {
+   transition: 1000ms ease-in;
+}
+
+to {
+background-position: 0px 1000px;
+}
+}
+
+@-ms-keyframes ruleteo {
+from {
+background-position: 0px  0px;
+}
+
+100% {
+   transition: 1000ms ease-in;
+
+}
+
+to {
+background-position: 0px 1000px;
+}
+}
+
+@-o-keyframes ruleteo {
+from {
+background-position: 0px 0px;
+}
+
+100% {
+   transition: 1000ms ease-in;
+}
+
+to {
+background-position: 0px 1000px;
+}
+}
+
+@-webkit-keyframes ruleteo {
+from {
+background-position: 0px 0px;
+}
+
+100% {
+   transition: 1000ms ease-in;
+}
+
+to {
+background-position: 0px 1000px;
+}
+}
+
+@-moz-keyframes ruleteo {
+from {
+background-position: 0px 0px;
+}
+
+100% {
+   transition: 1000ms ease-in;
+}
+
+to {
+background-position: 0px 1000px;
+}
+}
+
+.ruleta{
+  width: 100px;
+  height: 310px;
+}
+
+#ruleta1 {
+background-image: url("../img/r1.png");
+-ms-animation: ruleteo .8s linear .2s infinite;
+-webkit-animation: ruleteo .8s linear .2s infinite;
+-moz-animation: ruleteo .8s linear .2s infinite;
+-o-animation: ruleteo .8s  linear .2s infinite;
+animation: ruleteo .8s linear .2s infinite;
+transition: 1000ms;
+}
+
+#ruleta2 {
+background-image:  url("../img/r2.png");
+-ms-animation: ruleteo .8s linear .5s infinite;
+-webkit-animation: ruleteo .8s linear .5s infinite;
+-moz-animation: ruleteo .8s linear .5s  infinite;
+-o-animation: ruleteo .8s  linear .5s infinite;
+animation: ruleteo .8s linear .5s infinite;
+transition: 1000ms;
+}
+
+#ruleta3 {
+background-image:  url("../img/r3.png");
+-ms-animation: ruleteo .8s linear .8s infinite;
+-webkit-animation: ruleteo .8s linear .8s infinite;
+-moz-animation: ruleteo .8s linear .8s infinite;
+-o-animation: ruleteo .8s  linear .8s infinite;
+animation: ruleteo .8s linear .8s infinite;
+transition: 1000ms;
+}
