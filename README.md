@@ -1,0 +1,2 @@
+# SlotMachine
+Javascript Slot Machine
