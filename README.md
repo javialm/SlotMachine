@@ -9,4 +9,4 @@ I did this just 4 fun :)
 -Firefox animation issue
 
 <h3>Demo:</h3>
-https://github.com/javialm/SlotMachine
+https://javialm.github.io/SlotMachine/
